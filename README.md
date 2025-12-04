@@ -36,41 +36,58 @@ Unit tests written using Mockito & JUnit 5
 The goal of the application is to demonstrate good development practices, clean architecture, and working knowledge of Java, Spring Boot, validation, error handling, and frontend rendering.
 
 🏗 Architecture
-Spring Boot (Backend REST API)
-├── Controller Layer (REST + MVC)
-├── Service Layer
-├── Repository Layer (Spring Data JPA)
-├── Validation (Jakarta Validation)
-└── H2 In-Memory DB
+Controller Layer
+  - TaskWebController: Handles UI rendering with Thymeleaf.
+  - TaskRestController: Handles POST requests to create tasks.
 
-Thymeleaf (Frontend Template Engine)
-└── Form submission + Display task list
+Service Layer
+  - TaskService / TaskServiceImpl: Business logic for saving and retrieving tasks.
+
+Repository Layer
+  - TaskRepository: Manages DB operations using Spring Data JPA.
+
+Model Layer
+  - Task: Entity representing a task with validation rules.
+
+View Layer
+  - tasks.html: Task creation form + list of created tasks.
+
+Static Resources
+  - styles.css: UI styling for forms and task cards.
+
+Configuration
+  - application.properties: Database config, H2 console, Thymeleaf config.
+
 
 
 📁 Project Structure
 src/
- ├── main/java/com/karthik/developerchallengejr
- │     ├── controller
- │     │      ├── TaskWebController.java
- │     │      └── TaskRestController.java
- │     ├── service
- │     │      ├── TaskService.java
- │     │      └── TaskServiceImpl.java
- │     ├── repository
- │     │      └── TaskRepository.java
- │     ├── model
- │     │      └── Task.java
- │     └── TasksDemoApplication.java
- │
- ├── main/resources
- │     ├── templates
- │     │      └── tasks.html
- │     ├── static/css
- │     │      └── styles.css
- │     └── application.properties
- │
- └── test/java/com/karthik/developerchallengejr
-        └── TaskServiceImplTest.java
+  main/
+    java/
+      com.karthik.developerchallengejr/
+        controller/
+          TaskWebController.java
+          TaskRestController.java
+        model/
+          Task.java
+        repository/
+          TaskRepository.java
+        service/
+          TaskService.java
+          TaskServiceImpl.java
+    resources/
+      templates/
+        tasks.html
+      static/
+        css/
+          styles.css
+      application.properties
+
+  test/
+    java/
+      com.karthik.developerchallengejr/
+        TaskServiceImplTest.java
+
 
 🌐 API Documentation
 1. Create Task
