@@ -46,6 +46,7 @@ Spring Boot (Backend REST API)
 Thymeleaf (Frontend Template Engine)
 └── Form submission + Display task list
 
+
 📁 Project Structure
 src/
  ├── main/java/com/karthik/developerchallengejr
