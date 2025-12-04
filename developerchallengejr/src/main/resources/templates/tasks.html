@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Task</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Create New Task</h1>
+
+    <form th:action="@{/api/tasks}" th:object="${task}" method="post">
+
+	    <!-- Global error block (optional) -->
+	    <div class="error-global" th:if="${#fields.hasAnyErrors()}">
+	        Please fix the errors below.
+	    </div>
+	
+	    <!-- Title -->
+	    <label for="title">Title</label>
+	    <input id="title" type="text" th:field="*{title}"
+	           th:classappend="${#fields.hasErrors('title')} ? 'input-error'">
+	    <div class="error" th:if="${#fields.hasErrors('title')}"
+	         th:errors="*{title}">Title error</div>
+	
+	    <!-- Description -->
+	    <label for="description">Description (Optional)</label>
+	    <textarea id="description" th:field="*{description}"></textarea>
+	
+	    <!-- Status -->
+	    <label for="status">Status</label>
+	    <select id="status" th:field="*{status}"
+	            th:classappend="${#fields.hasErrors('status')} ? 'input-error'">
+	        <option value="">-- Select status --</option>
+	        <option value="Pending">Pending</option>
+	        <option value="IN PROGRESS">In progress</option>
+	        <option value="Completed">Completed</option>
+	    </select>
+	    <div class="error" th:if="${#fields.hasErrors('status')}"
+	         th:errors="*{status}">Status error</div>
+	
+	    <!-- Due Date -->
+	    <label for="dueDateTime">Due Date</label>
+	    <input id="dueDateTime" type="datetime-local" th:field="*{dueDateTime}"
+	           th:classappend="${#fields.hasErrors('dueDateTime')} ? 'input-error'">
+	    <div class="error" th:if="${#fields.hasErrors('dueDateTime')}"
+	         th:errors="*{dueDateTime}">Due date error</div>
+	
+	    <button type="submit">Create Task</button>
+	</form>
+
+</div>
+
+	<div th:if="${successMessage}" class="alert success-alert">
+	    <p th:text="${successMessage}"></p>
+	</div>
+
+
+	<!-- Displaying the created tasks -->
+	<div th:if="${tasks != null and !#lists.isEmpty(tasks)}">
+	    <h2>Tasks</h2>
+	
+	    <div th:each="task : ${tasks}" class="task-card">
+	        <p><strong>Title:</strong> <span th:text="${task.title}"></span></p>
+	        <p><strong>Description:</strong> <span th:text="${task.description} ?: '—'"></span></p>
+	        <p><strong>Status:</strong> <span th:text="${task.status}"></span></p>
+	        <p><strong>Due:</strong> <span th:text="${task.dueDateTime}"></span></p>
+	    </div>
+	</div>
+	
+	<!--message when there are no tasks -->
+	<div th:if="${tasks == null or #lists.isEmpty(tasks)}">
+	    <p>No tasks have been created yet.</p>
+	</div>
+</body>
+</html>
