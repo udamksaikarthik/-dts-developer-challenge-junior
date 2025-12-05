@@ -2,7 +2,6 @@ package com.karthik.developerchallengejr.controller;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +13,12 @@ import com.karthik.developerchallengejr.service.TaskService;
 @Controller
 public class TaskWebController {
 
+	
+	private final TaskService taskService;
 
-	@Autowired
-    private TaskService taskService;
+    public TaskWebController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 	
     @GetMapping("/")
     public ModelAndView showTaskForm(Model model) {

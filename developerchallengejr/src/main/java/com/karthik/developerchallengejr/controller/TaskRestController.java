@@ -3,7 +3,6 @@ package com.karthik.developerchallengejr.controller;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +18,12 @@ import jakarta.validation.Valid;
 @RestController
 public class TaskRestController {
 
-	@Autowired
-    private TaskService taskService;
+
+	private final TaskService taskService;
+
+    public TaskRestController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @PostMapping("/api/tasks")
     public ModelAndView createTask(@Valid @ModelAttribute Task task,
